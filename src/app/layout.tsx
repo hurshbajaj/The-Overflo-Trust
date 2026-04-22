@@ -16,11 +16,6 @@ const sans = Inter({
 export const metadata: Metadata = {
   title: "The Overflo' Trust",
   description: "Food redistribution, civic reputation, and dignified community impact.",
-  icons: {
-    icon: "/logo_logo.png",
-    shortcut: "/logo_logo.png",
-    apple: "/logo_logo.png",
-  },
 };
 
 export default function RootLayout({
