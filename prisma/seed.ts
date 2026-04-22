@@ -49,7 +49,7 @@ async function main() {
         data: {
           profileId: profile.id,
           title: `Batch ${j + 1}`,
-          quantityMeals: 35 + j * 8 + i,
+          quantityMeals: 25 + j * 4 + i,
           description: "Prepared surplus meals packed for same-day pickup.",
           pickupWindow: "17:30 - 20:00",
           freshness: j % 3 === 0 ? "PRIME" : j % 2 === 0 ? "FRESH" : "STANDARD",

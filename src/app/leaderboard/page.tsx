@@ -17,8 +17,8 @@ export default async function LeaderboardPage({ searchParams }: Props) {
         <input name="category" placeholder="Filter by category" defaultValue={params.category} className="rounded-xl border border-amber-900/20 bg-white p-2" />
         <button className="btn-primary" type="submit">Apply</button>
       </form>
-      <div className="panel fade-in-up overflow-hidden" style={{ animationDelay: "120ms" }}>
-        <table className="w-full text-left text-sm">
+      <div className="panel leaderboard-table-shell fade-in-up overflow-hidden" style={{ animationDelay: "120ms" }}>
+        <table className="leaderboard-table w-full text-left text-sm">
           <thead className="bg-[#f0dfcb]">
             <tr>
               <th className="p-3">Rank</th><th>Name</th><th>Score</th><th>Meals</th><th>Rating</th><th>Streak</th><th>Location</th><th></th>

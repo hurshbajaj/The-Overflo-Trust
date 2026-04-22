@@ -6,11 +6,11 @@ export async function NavBar() {
   const user = await getCurrentUser();
   return (
     <header className="border-b border-amber-900/20 bg-[#1f130f]/95 text-amber-50 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+      <div className="nav-shell mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-xl tracking-wide">
           The Overflo&apos; Trust
         </Link>
-        <nav className="flex items-center gap-5 text-sm">
+        <nav className="nav-links flex items-center gap-5 text-sm">
           <Link href="/about">About</Link>
           <Link href="/feed">Feed</Link>
           <Link href="/leaderboard">Leaderboard</Link>
