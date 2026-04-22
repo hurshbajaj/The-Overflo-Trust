@@ -24,10 +24,24 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 h1,
 h2,
 h3 {
   font-family: var(--font-display), serif;
+}
+
+.site-header a,
+.site-header button {
+  transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease, opacity 220ms ease;
+}
+
+.site-header a:hover,
+.site-header button:hover {
+  opacity: 0.78;
 }
 
 .panel {

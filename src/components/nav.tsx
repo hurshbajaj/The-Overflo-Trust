@@ -5,7 +5,7 @@ import { signOutAction } from "@/lib/actions";
 export async function NavBar() {
   const user = await getCurrentUser();
   return (
-    <header className="border-b border-amber-900/20 bg-[#1f130f]/95 text-amber-50 backdrop-blur">
+    <header className="site-header border-b border-amber-900/20 bg-[#1f130f]/95 text-amber-50 backdrop-blur">
       <div className="nav-shell mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-xl tracking-wide">
           The Overflo&apos; Trust
