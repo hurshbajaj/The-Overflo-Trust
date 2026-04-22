@@ -126,6 +126,7 @@ export async function addRatingAction(formData: FormData) {
   const user = await getCurrentUser();
   if (!user) throw new Error("Login required");
   const profileId = String(formData.get("profileId"));
+  const profileSlug = String(formData.get("profileSlug") || "");
   const score = Number(formData.get("score"));
   if (score < 1 || score > 5) throw new Error("Invalid rating");
   await prisma.rating.create({ data: { profileId, userId: user.id, score } });
@@ -133,16 +134,25 @@ export async function addRatingAction(formData: FormData) {
   await prisma.stewardProfile.update({ where: { id: profileId }, data: { averageRating: aggregate._avg.score || 0 } });
   await recomputeScore(profileId);
   revalidatePath("/leaderboard");
+  if (profileSlug) {
+    revalidatePath(`/providers/${profileSlug}`);
+    redirect(`/providers/${profileSlug}?rating=submitted`);
+  }
 }
 
 export async function addCommentAction(formData: FormData) {
   const user = await getCurrentUser();
   if (!user) throw new Error("Login required");
   const profileId = String(formData.get("profileId"));
+  const profileSlug = String(formData.get("profileSlug") || "");
   const body = String(formData.get("body") || "").trim();
   if (!body) return;
   await prisma.comment.create({ data: { profileId, userId: user.id, body } });
   revalidatePath("/feed");
+  if (profileSlug) {
+    revalidatePath(`/providers/${profileSlug}`);
+    redirect(`/providers/${profileSlug}?comment=posted`);
+  }
 }
 
 export async function luckyJumpAction() {
