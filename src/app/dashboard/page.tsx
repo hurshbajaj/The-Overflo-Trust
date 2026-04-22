@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { addDonationAction, updateStewardProfileAction } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { AnimatedNumber } from "@/components/animated-number";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -13,14 +14,14 @@ export default async function DashboardPage() {
   if (!profile) redirect("/signup");
   return (
     <section className="space-y-6">
-      <h1 className="text-4xl">Steward Command Deck</h1>
+      <h1 className="fade-in-up text-4xl">Steward Command Deck</h1>
       <div className="grid gap-4 md:grid-cols-4">
-        <div className="panel p-4"><p className="text-sm">Republic Score</p><p className="text-3xl">{profile.republicScore.toFixed(1)}</p></div>
-        <div className="panel p-4"><p className="text-sm">Profile views</p><p className="text-3xl">{profile.profileViews}</p></div>
-        <div className="panel p-4"><p className="text-sm">Meals donated</p><p className="text-3xl">{profile.totalMealsDonated}</p></div>
-        <div className="panel p-4"><p className="text-sm">Consistency</p><p className="text-3xl">{profile.consistencyStreak}d</p></div>
+        <div className="panel fade-in-up p-4" style={{ animationDelay: "80ms" }}><p className="text-sm">Republic Score</p><p className="text-3xl"><AnimatedNumber value={profile.republicScore} decimals={1} /></p></div>
+        <div className="panel fade-in-up p-4" style={{ animationDelay: "140ms" }}><p className="text-sm">Profile views</p><p className="text-3xl"><AnimatedNumber value={profile.profileViews} /></p></div>
+        <div className="panel fade-in-up p-4" style={{ animationDelay: "200ms" }}><p className="text-sm">Meals donated</p><p className="text-3xl"><AnimatedNumber value={profile.totalMealsDonated} /></p></div>
+        <div className="panel fade-in-up p-4" style={{ animationDelay: "260ms" }}><p className="text-sm">Consistency</p><p className="text-3xl"><AnimatedNumber value={profile.consistencyStreak} />d</p></div>
       </div>
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-5 lg:grid-cols-2 fade-in-up" style={{ animationDelay: "320ms" }}>
         <form action={updateStewardProfileAction} className="panel space-y-2 p-5">
           <h2 className="text-2xl">Public profile settings</h2>
           <input name="brandName" defaultValue={profile.brandName} className="w-full rounded-xl border border-amber-900/20 bg-white p-2" />
@@ -48,7 +49,7 @@ export default async function DashboardPage() {
           <button className="btn-primary">Add entry</button>
         </form>
       </div>
-      <div className="panel p-5">
+      <div className="panel fade-in-up p-5" style={{ animationDelay: "380ms" }}>
         <h2 className="text-2xl">Recent entries</h2>
         <div className="mt-3 space-y-2">
           {profile.donations.map((d) => (
