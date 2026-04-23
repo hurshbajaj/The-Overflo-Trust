@@ -67,11 +67,11 @@ export default async function ProviderPage({ params, searchParams }: Props) {
                 const proofW = pick(["w-1/2", "w-7/12", "w-5/12", "w-4/12"]);
                 return (
                 <article key={item} className="rounded-xl border border-amber-900/10 p-4">
-                  <div className={`skeleton-pulse h-6 ${titleW} rounded bg-amber-950/19`} />
-                  <div className={`skeleton-pulse mt-3 h-4 ${desc1W} rounded bg-amber-950/19`} />
-                  <div className={`skeleton-pulse mt-2 h-4 ${desc2W} rounded bg-amber-950/19`} />
-                  <div className={`skeleton-pulse mt-3 h-4 ${metaW} rounded bg-amber-950/19`} />
-                  <div className={`skeleton-pulse mt-2 h-3 ${proofW} rounded bg-amber-950/19`} />
+                  <div className={`skeleton-pulse h-6 ${titleW} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-3 h-4 ${desc1W} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-2 h-4 ${desc2W} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-3 h-4 ${metaW} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-2 h-3 ${proofW} rounded bg-amber-950/21`} />
                 </article>
                 );
               })}
