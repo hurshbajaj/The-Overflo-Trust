@@ -269,6 +269,7 @@ Default seeded credentials include:
 
 ## Known Notes
 
+- Fully responive design.
 - Middleware protects private routes by cookie presence, while server code validates sessions and roles.
 - Feed ordering intentionally includes randomization to prevent rigid ranking lock-in.
 
