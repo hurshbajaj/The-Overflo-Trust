@@ -95,6 +95,10 @@ h3 {
   animation: softPulse 2.5s ease-in-out infinite;
 }
 
+.skeleton-pulse {
+  animation: skeletonPulse 1.35s ease-in-out infinite;
+}
+
 .live-sheen {
   position: relative;
   overflow: hidden;
@@ -194,6 +198,16 @@ h3 {
   }
   50% {
     box-shadow: 0 0 0 10px rgba(120, 72, 44, 0);
+  }
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.78;
   }
 }
 

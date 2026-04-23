@@ -44,14 +44,28 @@ export default async function ProviderPage({ params, searchParams }: Props) {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="panel fade-in-up space-y-3 p-5 lg:col-span-2" style={{ animationDelay: "120ms" }}>
           <h2 className="text-2xl">Donation History</h2>
-          {profile.donations.map((d, index) => (
-            <article key={d.id} className="fade-in-up rounded-xl border border-amber-900/10 p-4 transition hover:-translate-y-0.5" style={{ animationDelay: `${Math.min(index * 45, 320)}ms` }}>
-              <h3 className="text-lg">{d.title}</h3>
-              <p className="text-sm text-[#563c30]">{d.description}</p>
-              <p className="mt-2 text-sm"><AnimatedNumber value={d.quantityMeals} /> meals • {d.pickupWindow} • {d.pickupSuccess ? "Pickup complete" : "Pending pickup"}</p>
-              <p className="text-xs text-amber-800">Proof: {d.proofSource || "Awaiting third-party reference"}</p>
-            </article>
-          ))}
+          {profile.donations.length ? (
+            profile.donations.map((d, index) => (
+              <article key={d.id} className="fade-in-up rounded-xl border border-amber-900/10 p-4 transition hover:-translate-y-0.5" style={{ animationDelay: `${Math.min(index * 45, 320)}ms` }}>
+                <h3 className="text-lg">{d.title}</h3>
+                <p className="text-sm text-[#563c30]">{d.description}</p>
+                <p className="mt-2 text-sm"><AnimatedNumber value={d.quantityMeals} /> meals • {d.pickupWindow} • {d.pickupSuccess ? "Pickup complete" : "Pending pickup"}</p>
+                <p className="text-xs text-amber-800">Proof: {d.proofSource || "Awaiting third-party reference"}</p>
+              </article>
+            ))
+          ) : (
+            <div className="space-y-3">
+              {[0, 1, 2].map((item) => (
+                <article key={item} className="rounded-xl border border-amber-900/10 p-4">
+                  <div className="skeleton-pulse h-6 w-2/5 rounded bg-amber-900/12" />
+                  <div className="skeleton-pulse mt-3 h-4 w-full rounded bg-amber-900/12" />
+                  <div className="skeleton-pulse mt-2 h-4 w-4/5 rounded bg-amber-900/12" />
+                  <div className="skeleton-pulse mt-3 h-4 w-3/5 rounded bg-amber-900/12" />
+                  <div className="skeleton-pulse mt-2 h-3 w-1/2 rounded bg-amber-900/12" />
+                </article>
+              ))}
+            </div>
+          )}
         </div>
         <div className="space-y-4">
           <form action={addRatingAction} className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "160ms" }}>
