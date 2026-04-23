@@ -1,6 +1,7 @@
 import { luckyJumpAction } from "@/lib/actions";
 import { getHiddenGems } from "@/lib/data";
 import { AnimatedNumber } from "@/components/animated-number";
+import Link from "next/link";
 
 export default async function LuckyPage() {
   const gems = await getHiddenGems();
@@ -17,12 +18,17 @@ export default async function LuckyPage() {
         <h2 className="text-2xl">Hidden Gems</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {gems.map((g, index) => (
-            <div key={g.id} className="fade-in-up rounded-xl border border-amber-900/10 p-4" style={{ animationDelay: `${Math.min(index * 45, 300)}ms` }}>
+            <Link
+              key={g.id}
+              href={`/providers/${g.profile.slug}?lucky=1`}
+              className="fade-in-up rounded-xl border border-amber-900/10 p-4 transition hover:-translate-y-0.5"
+              style={{ animationDelay: `${Math.min(index * 45, 300)}ms` }}
+            >
               <p className="text-lg">{g.profile.brandName}</p>
               <p className="text-sm text-[#563c30]">
                 Appearances <AnimatedNumber value={g.luckyAppearances} /> • Click-throughs <AnimatedNumber value={g.clickThroughs} /> • Rating growth <AnimatedNumber value={g.ratingGrowth} decimals={2} /> • Popularity <AnimatedNumber value={g.popularityGained} decimals={1} />
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

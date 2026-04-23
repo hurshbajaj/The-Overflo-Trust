@@ -3,10 +3,11 @@ import { addCommentAction, addRatingAction } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/auth";
 import { getLeaderboard, getStewardBySlug } from "@/lib/data";
 import { AnimatedNumber } from "@/components/animated-number";
+import { prisma } from "@/lib/prisma";
 
 type Props = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ rating?: string; comment?: string }>;
+  searchParams: Promise<{ rating?: string; comment?: string; lucky?: string }>;
 };
 
 export default async function ProviderPage({ params, searchParams }: Props) {
@@ -18,6 +19,12 @@ export default async function ProviderPage({ params, searchParams }: Props) {
   const canEngage = user?.role === "CONSUMER";
   const profile = await getStewardBySlug(slug);
   if (!profile) return notFound();
+  if (query.lucky === "1") {
+    await prisma.luckyExposureStat.updateMany({
+      where: { profileId: profile.id },
+      data: { clickThroughs: { increment: 1 }, popularityGained: { increment: 1 } },
+    });
+  }
   const leaderboard = await getLeaderboard();
   const rank = leaderboard.find((x) => x.id === profile.id)?.rank ?? "-";
   const totalMeals = profile.donations.reduce((sum, entry) => sum + entry.quantityMeals, 0);

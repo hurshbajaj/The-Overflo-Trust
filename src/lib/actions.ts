@@ -132,7 +132,22 @@ export async function addRatingAction(formData: FormData) {
   if (score < 1 || score > 5) throw new Error("Invalid rating");
   await prisma.rating.create({ data: { profileId, userId: user.id, score } });
   const aggregate = await prisma.rating.aggregate({ where: { profileId }, _avg: { score: true } });
-  await prisma.stewardProfile.update({ where: { id: profileId }, data: { averageRating: aggregate._avg.score || 0 } });
+  const newAverage = aggregate._avg.score || 0;
+  await prisma.stewardProfile.update({ where: { id: profileId }, data: { averageRating: newAverage } });
+  const lucky = await prisma.luckyExposureStat.findUnique({ where: { profileId } });
+  if (lucky) {
+    const baselineAgg = await prisma.rating.aggregate({
+      where: { profileId, createdAt: { lte: lucky.createdAt } },
+      _avg: { score: true },
+    });
+    const baselineAverage = baselineAgg._avg.score || 0;
+    const growth = newAverage - baselineAverage;
+    const popularity = lucky.luckyAppearances * 0.3 + lucky.clickThroughs * 1 + growth * 4;
+    await prisma.luckyExposureStat.update({
+      where: { profileId },
+      data: { ratingGrowth: growth, popularityGained: popularity },
+    });
+  }
   await recomputeScore(profileId);
   revalidatePath("/leaderboard");
   if (profileSlug) {
@@ -166,10 +181,10 @@ export async function luckyJumpAction() {
   const selected = weighted.find((item) => (target -= item.w) <= 0) || weighted[0];
   await prisma.luckyExposureStat.upsert({
     where: { profileId: selected.id },
-    create: { profileId: selected.id, luckyAppearances: 1, clickThroughs: 1, popularityGained: 1.2 },
-    update: { luckyAppearances: { increment: 1 }, clickThroughs: { increment: 1 }, popularityGained: { increment: 1.2 } },
+    create: { profileId: selected.id, luckyAppearances: 1, popularityGained: 0.3 },
+    update: { luckyAppearances: { increment: 1 }, popularityGained: { increment: 0.3 } },
   });
-  redirect(`/providers/${selected.slug}`);
+  redirect(`/providers/${selected.slug}?lucky=1`);
 }
 
 export async function recomputeScore(profileId: string) {
