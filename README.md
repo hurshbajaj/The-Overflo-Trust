@@ -26,7 +26,7 @@ The platform is designed to:
 
 - Help stewards publish and track surplus meal donations.
 - Surface reliable contributors using measurable service data.
-- Give community users a feed and profile pages for discovery and trust.
+- Give community users a feed (pun intended) and profile pages for discovery and trust.
 - Encourage quality and consistency with transparent score mechanics.
 - Balance visibility for top performers and rising stewards.
 
@@ -95,7 +95,7 @@ Each steward profile shows:
 
 - `/` - Home: mission, key metrics, spotlight, and "how it works" explainer.
 - `/about` - Platform rationale and process narrative.
-- `/feed` - Discover stewards.
+- `/feed` - Discover stewards (Pun Intended).
 - `/leaderboard` - Ranked steward performance board with filters.
 - `/lucky` - Weighted random steward discovery.
 - `/providers/[slug]` - Individual steward public profile.
@@ -260,7 +260,7 @@ Default seeded credentials include:
 
 ### Consumer Flow
 
-1. Browse `/feed` and `/leaderboard`.
+1. Browse `/feed` (pun intended) and `/leaderboard`.
 2. Open steward profile.
 3. Post ratings/comments.
 4. Use `/lucky` to discover rising operators.
