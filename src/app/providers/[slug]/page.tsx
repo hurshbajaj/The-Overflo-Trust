@@ -79,6 +79,23 @@ export default async function ProviderPage({ params, searchParams }: Props) {
             />
             <button className="btn-secondary">Post</button>
           </form>
+          <div className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "260ms" }}>
+            <h3 className="text-xl">Comments</h3>
+            {profile.comments.length ? (
+              <div className="space-y-3">
+                {profile.comments.map((comment) => (
+                  <article key={comment.id} className="rounded-xl border border-amber-900/10 bg-white/65 p-3">
+                    <p className="text-sm text-[#563c30]">{comment.body}</p>
+                    <p className="mt-2 text-xs text-amber-800">
+                      {comment.user.fullName} • {new Date(comment.createdAt).toLocaleString()}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#563c30]">No comments yet.</p>
+            )}
+          </div>
         </div>
       </div>
     </section>
