@@ -28,6 +28,16 @@ button {
   cursor: pointer;
 }
 
+::selection {
+  background: #FEE685;
+  color: inherit;
+}
+
+::-moz-selection {
+  background: #FEE685A8;
+  color: inherit;
+}
+
 h1,
 h2,
 h3 {
@@ -99,6 +109,29 @@ h3 {
   transform: rotate(16deg);
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: sheen 5s ease-in-out infinite;
+}
+
+.live-sheen-group {
+  position: relative;
+  overflow: hidden;
+}
+
+.live-sheen-group::after {
+  content: "";
+  position: absolute;
+  inset: -120% auto auto -140%;
+  width: 55%;
+  height: 300%;
+  transform: rotate(16deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: sheen 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.live-sheen-group > * {
+  position: relative;
+  z-index: 1;
 }
 
 .marquee {

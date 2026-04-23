@@ -52,7 +52,7 @@ export default async function Home() {
           The platform connects stewards who have quality surplus meals with people and organizations who can put those meals to immediate use.
           Every action is tracked so trust is earned through consistent delivery, not just claims.
         </p>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="live-sheen-group grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-amber-900/15 bg-white/65 p-4">
             <h3 className="text-xl">1) Steward setup</h3>
             <p className="mt-2 text-sm text-[#563c30]">
