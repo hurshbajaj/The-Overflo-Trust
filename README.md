@@ -95,7 +95,7 @@ Each steward profile shows:
 
 - `/` - Home: mission, key metrics, spotlight, and "how it works" explainer.
 - `/about` - Platform rationale and process narrative.
-- `/feed` - Discover stewards (Pun Intended).
+- `/feed` - Discover stewards (pun intended).
 - `/leaderboard` - Ranked steward performance board with filters.
 - `/lucky` - Weighted random steward discovery.
 - `/providers/[slug]` - Individual steward public profile.
