@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { addCommentAction, addRatingAction } from "@/lib/actions";
+import { getCurrentUser } from "@/lib/auth";
 import { getLeaderboard, getStewardBySlug } from "@/lib/data";
 import { AnimatedNumber } from "@/components/animated-number";
 
@@ -13,6 +14,8 @@ export default async function ProviderPage({ params, searchParams }: Props) {
   const query = await searchParams;
   const ratingSubmitted = query.rating === "submitted";
   const commentPosted = query.comment === "posted";
+  const user = await getCurrentUser();
+  const canEngage = user?.role === "CONSUMER";
   const profile = await getStewardBySlug(slug);
   if (!profile) return notFound();
   const leaderboard = await getLeaderboard();
@@ -68,31 +71,46 @@ export default async function ProviderPage({ params, searchParams }: Props) {
           )}
         </div>
         <div className="space-y-4">
-          <form action={addRatingAction} className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "160ms" }}>
-            <h3 className="text-xl">Rate this steward</h3>
-            <input type="hidden" name="profileId" value={profile.id} />
-            <input type="hidden" name="profileSlug" value={profile.slug} />
-            <input
-              type="number"
-              name="score"
-              min={1}
-              max={5}
-              placeholder={ratingSubmitted ? "Rating submitted" : "Rate 1 to 5"}
-              className={`w-full rounded-xl border bg-white p-2 ${ratingSubmitted ? "border-emerald-500 ring-1 ring-emerald-200" : "border-amber-900/20"}`}
-            />
-            <button className="btn-primary">Submit rating</button>
-          </form>
-          <form action={addCommentAction} className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "220ms" }}>
-            <h3 className="text-xl">Comment</h3>
-            <input type="hidden" name="profileId" value={profile.id} />
-            <input type="hidden" name="profileSlug" value={profile.slug} />
-            <textarea
-              name="body"
-              placeholder={commentPosted ? "Comment posted" : "Write your comment"}
-              className={`min-h-28 w-full rounded-xl border bg-white p-2 ${commentPosted ? "border-emerald-500 ring-1 ring-emerald-200" : "border-amber-900/20"}`}
-            />
-            <button className="btn-secondary">Post</button>
-          </form>
+          {canEngage ? (
+            <>
+              <form action={addRatingAction} className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "160ms" }}>
+                <h3 className="text-xl">Rate this steward</h3>
+                <input type="hidden" name="profileId" value={profile.id} />
+                <input type="hidden" name="profileSlug" value={profile.slug} />
+                <input
+                  type="number"
+                  name="score"
+                  min={1}
+                  max={5}
+                  placeholder={ratingSubmitted ? "Rating submitted" : "Rate 1 to 5"}
+                  className={`w-full rounded-xl border bg-white p-2 ${ratingSubmitted ? "border-emerald-500 ring-1 ring-emerald-200" : "border-amber-900/20"}`}
+                />
+                <button className="btn-primary">Submit rating</button>
+              </form>
+              <form action={addCommentAction} className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "220ms" }}>
+                <h3 className="text-xl">Comment</h3>
+                <input type="hidden" name="profileId" value={profile.id} />
+                <input type="hidden" name="profileSlug" value={profile.slug} />
+                <textarea
+                  name="body"
+                  placeholder={commentPosted ? "Comment posted" : "Write your comment"}
+                  className={`min-h-28 w-full rounded-xl border bg-white p-2 ${commentPosted ? "border-emerald-500 ring-1 ring-emerald-200" : "border-amber-900/20"}`}
+                />
+                <button className="btn-secondary">Post</button>
+              </form>
+            </>
+          ) : (
+            <>
+              <div className="panel fade-in-up space-y-2 p-4" style={{ animationDelay: "160ms" }}>
+                <h3 className="text-xl">Rate this steward</h3>
+                <p className="text-sm text-[#563c30]">You must be a consumer to leave a rating.</p>
+              </div>
+              <div className="panel fade-in-up space-y-2 p-4" style={{ animationDelay: "220ms" }}>
+                <h3 className="text-xl">Comment</h3>
+                <p className="text-sm text-[#563c30]">You must be a consumer to leave a comment.</p>
+              </div>
+            </>
+          )}
           <div className="panel fade-in-up space-y-3 p-4" style={{ animationDelay: "260ms" }}>
             <h3 className="text-xl">Comments</h3>
             {profile.comments.length ? (

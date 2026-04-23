@@ -125,6 +125,7 @@ export async function updateStewardProfileAction(formData: FormData) {
 export async function addRatingAction(formData: FormData) {
   const user = await getCurrentUser();
   if (!user) throw new Error("Login required");
+  if (user.role !== "CONSUMER") throw new Error("Consumers only");
   const profileId = String(formData.get("profileId"));
   const profileSlug = String(formData.get("profileSlug") || "");
   const score = Number(formData.get("score"));
@@ -143,6 +144,7 @@ export async function addRatingAction(formData: FormData) {
 export async function addCommentAction(formData: FormData) {
   const user = await getCurrentUser();
   if (!user) throw new Error("Login required");
+  if (user.role !== "CONSUMER") throw new Error("Consumers only");
   const profileId = String(formData.get("profileId"));
   const profileSlug = String(formData.get("profileSlug") || "");
   const body = String(formData.get("body") || "").trim();

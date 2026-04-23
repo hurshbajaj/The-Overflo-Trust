@@ -253,7 +253,6 @@ h3 {
   }
 }
 
-/* Keep laptop/desktop untouched; only adjust non-laptop layouts. */
 @media (max-width: 1023px) {
   .nav-shell {
     align-items: flex-start;
