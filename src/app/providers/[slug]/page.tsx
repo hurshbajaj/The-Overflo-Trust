@@ -58,15 +58,23 @@ export default async function ProviderPage({ params, searchParams }: Props) {
             ))
           ) : (
             <div className="space-y-3">
-              {[0, 1, 2].map((item) => (
+              {[0, 1, 2].map((item) => {
+                const pick = <T,>(values: T[]) => values[Math.floor(Math.random() * values.length)];
+                const titleW = pick(["w-2/5", "w-1/2", "w-1/3", "w-5/12"]);
+                const desc1W = pick(["w-full", "w-11/12", "w-10/12", "w-9/12"]);
+                const desc2W = pick(["w-4/5", "w-5/6", "w-3/4", "w-8/12"]);
+                const metaW = pick(["w-3/5", "w-2/3", "w-1/2", "w-7/12"]);
+                const proofW = pick(["w-1/2", "w-7/12", "w-5/12", "w-4/12"]);
+                return (
                 <article key={item} className="rounded-xl border border-amber-900/10 p-4">
-                  <div className="skeleton-pulse h-6 w-2/5 rounded bg-amber-900/12" />
-                  <div className="skeleton-pulse mt-3 h-4 w-full rounded bg-amber-900/12" />
-                  <div className="skeleton-pulse mt-2 h-4 w-4/5 rounded bg-amber-900/12" />
-                  <div className="skeleton-pulse mt-3 h-4 w-3/5 rounded bg-amber-900/12" />
-                  <div className="skeleton-pulse mt-2 h-3 w-1/2 rounded bg-amber-900/12" />
+                  <div className={`skeleton-pulse h-6 ${titleW} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-3 h-4 ${desc1W} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-2 h-4 ${desc2W} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-3 h-4 ${metaW} rounded bg-amber-950/21`} />
+                  <div className={`skeleton-pulse mt-2 h-3 ${proofW} rounded bg-amber-950/21`} />
                 </article>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
